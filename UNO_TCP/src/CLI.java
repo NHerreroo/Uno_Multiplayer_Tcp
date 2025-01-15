@@ -18,8 +18,9 @@ public class CLI {
         System.out.println("El juego de cartas para toda la familia.");
         System.out.println();
 
-        System.out.println("1. CREATE A GAME (Start the server)");
-        System.out.println("2. JOIN A GAME (Join a server)");
-        System.out.println("3. QUIT");
+        System.out.println("SELECCIONA UNA OPCION:");
+        System.out.println("1. CREAR PARTIDA (Iniciar servidor)");
+        System.out.println("2. UNIRSE A UNA PARTIDA");
+        System.out.println("3. SALIR");
     }
 }

@@ -17,13 +17,14 @@ public class ServidorUnoTcp {
 
         try {
             serverSocket = new ServerSocket(port);
+            System.out.println("Servidor escuchando en el puerto: " + port);
+
             while(true) { //esperar connexió del client i llançar thread
                 clientSocket = serverSocket.accept();
-                System.out.println("Connexió acceptada: " + clientSocket.getInetAddress());
-                //Llançar Thread per establir la comunicació
+                System.out.println("Cliente conectado: " + clientSocket.getInetAddress());
             }
         } catch (IOException ex) {
-            Logger.getLogger(ServidorUnoTcp.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error en el servidor: " + ex.getMessage());
         }
     }
 
