@@ -23,7 +23,11 @@ public class ClienteUnoTcp extends Thread {
 
     public void connect(){
         try (Socket socket = new Socket(InetAddress.getByName(hostname), port)){
-            System.out.println("Conectado al servidor: " + hostname + " en el puerto: " + port);
+
+            String loopback = InetAddress.getLoopbackAddress().toString();
+            String result = loopback.substring(loopback.indexOf("/"));
+
+            if (result.equals(hostname)) System.out.println("Conectado al servidor: " + hostname + " en el puerto: " + port);
         } catch (Exception e) {
             System.err.println("Error al conectar al servidor: " + e.getMessage());
         }

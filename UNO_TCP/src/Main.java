@@ -1,10 +1,15 @@
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException {
         CLI cli = new CLI();
         boolean running = true;
         Scanner sc = new Scanner(System.in);
+
+        InetAddress ip = InetAddress.getLocalHost();
 
         cli.mostrarMenu();
         while (running){
@@ -13,6 +18,7 @@ public class Main {
             switch (opcion){
                 case 1:
                     System.out.println("Iniciando servidor y cliente local...");
+                    System.out.println("Tu IP: " + ip.getHostAddress());
                     new Thread(() -> {
                         ServidorUnoTcp serv = new ServidorUnoTcp(5558);
                         serv.listen();
