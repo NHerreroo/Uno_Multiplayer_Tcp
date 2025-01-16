@@ -1,14 +1,11 @@
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ServidorUnoTcp {
     int port;
-    ArrayList<InetAddress> ips = new ArrayList<>();
 
     public ServidorUnoTcp(int port ) {
         this.port = port;
@@ -24,16 +21,7 @@ public class ServidorUnoTcp {
 
             while(true) { //esperar connexió del client i llançar thread
                 clientSocket = serverSocket.accept();
-
-                //Arreglar que si es la de loopback (YO) no mostrar en pantalla, solo los jugadores que se estan conectando
-                InetAddress ip = clientSocket.getInetAddress();
-
-//                if (!ip.equals(InetAddress)){
-//                    System.out.println("Cliente conectado: " + ip);
-//                }
-
-//                ips.add(ip);
-//                System.out.println(ip);
+                System.out.println("Cliente conectado: " + clientSocket.getInetAddress());
             }
         } catch (IOException ex) {
             System.err.println("Error en el servidor: " + ex.getMessage());

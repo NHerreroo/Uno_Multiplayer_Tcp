@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0ab081e3-d556-4cfc-8e19-01496e46d8ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UNO_TCP/src/CLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/UNO_TCP/src/CLI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UNO_TCP/src/ClienteUnoTcp.java" beforeDir="false" afterPath="$PROJECT_DIR$/UNO_TCP/src/ClienteUnoTcp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UNO_TCP/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/UNO_TCP/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UNO_TCP/src/ServidorUnoTcp.java" beforeDir="false" afterPath="$PROJECT_DIR$/UNO_TCP/src/ServidorUnoTcp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Uno_Multiplayer_Tcp/CLI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Uno_Multiplayer_Tcp/CLI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Uno_Multiplayer_Tcp/ClienteUnoTcp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Uno_Multiplayer_Tcp/ClienteUnoTcp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Uno_Multiplayer_Tcp/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Uno_Multiplayer_Tcp/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Uno_Multiplayer_Tcp/ServidorUnoTcp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Uno_Multiplayer_Tcp/ServidorUnoTcp.class" afterDir="false" />
@@ -63,7 +61,7 @@
     &quot;last_opened_file_path&quot;: &quot;D:/Programación/Java/Uno_Multiplayer_Tcp/UNO_TCP&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.ClienteUnoTcp">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="ClienteUnoTcp" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ClienteUnoTcp" />
       <module name="Uno_Multiplayer_Tcp" />
