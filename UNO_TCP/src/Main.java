@@ -20,17 +20,17 @@ public class Main {
                     System.out.println("Iniciando servidor y cliente local...");
                     System.out.println("Tu IP: " + ip.getHostAddress());
                     new Thread(() -> {
-                        ServidorUnoTcp serv = new ServidorUnoTcp(5559);
+                        ServidorUnoTcp serv = new ServidorUnoTcp(559);
                         serv.listen();
                     }).start();
-                    ClienteUnoTcp cliente = new ClienteUnoTcp("localhost", 5559);
+                    ClienteUnoTcp cliente = new ClienteUnoTcp("localhost", 559);
                     cliente.connect();
                     break;
                 case 2:
                     System.out.println("Ingresa la dirección IP del servidor: ");
                     sc.nextLine();
                     String hostname = sc.nextLine();
-                    ClienteUnoTcp clienteRemoto = new ClienteUnoTcp(hostname, 5559);
+                    ClienteUnoTcp clienteRemoto = new ClienteUnoTcp(hostname, 559);
                     clienteRemoto.connect();
                     break;
                 case 3:

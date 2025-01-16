@@ -1,6 +1,8 @@
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.IllegalFormatCodePointException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,20 +19,25 @@ public class ServidorUnoTcp {
 
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println("Servidor escuchando en el puerto: " + port);
+            System.out.println("SERVIDOR: Servidor escuchando en el puerto: " + port);
 
             while(true) { //esperar connexió del client i llançar thread
                 clientSocket = serverSocket.accept();
-                System.out.println("Cliente conectado: " + clientSocket.getInetAddress());
+                InetAddress clientAddress = clientSocket.getInetAddress();
+
+                if (!clientAddress.isLoopbackAddress()){
+                    System.out.println("SERVIDOR: Cliente conectado: " + clientAddress);
+                }
+
             }
         } catch (IOException ex) {
-            System.err.println("Error en el servidor: " + ex.getMessage());
+            System.err.println("SERVIDOR: Error en el servidor: " + ex.getMessage());
         }
     }
 
     public static void main(String[] args) {
         //int port = Integer.parseInt(args[0]);
-        ServidorUnoTcp srv = new ServidorUnoTcp(5558);
+        ServidorUnoTcp srv = new ServidorUnoTcp(559);
         srv.listen();
 
     }
