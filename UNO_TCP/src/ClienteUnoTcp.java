@@ -11,13 +11,16 @@ import java.util.logging.Logger;
 
 public class ClienteUnoTcp extends Thread {
 
+    String playerName;
     String hostname;
     int port;
 
 
-    public ClienteUnoTcp(String hostname, int port) {
+
+    public ClienteUnoTcp(String hostname, int port, String playerName) {
         this.hostname = hostname;
         this.port = port;
+        this.playerName = playerName;
 
     }
 
@@ -30,6 +33,8 @@ public class ClienteUnoTcp extends Thread {
                 try (Socket socket = new Socket(serverAddress, port)) {
                     System.out.println("CLIENTE: Conectado al servidor: " + hostname + " en el puerto: " + port);
                 }
+            }else{
+                System.out.println("CLIENTE: " + InetAddress.getLocalHost().getHostAddress() + " (TU)");
             }
 
         } catch (Exception e) {
@@ -46,7 +51,10 @@ public class ClienteUnoTcp extends Thread {
 
         // String hostName = args[0];
         // int portNumber = Integer.parseInt(args[1]);
-        ClienteUnoTcp clientTcp = new ClienteUnoTcp("localhost",559);
+        Scanner sc = new Scanner(System.in);
+        String playerName = sc.nextLine();
+
+        ClienteUnoTcp clientTcp = new ClienteUnoTcp("localhost",559, playerName);
         clientTcp.start();
     }
 }
