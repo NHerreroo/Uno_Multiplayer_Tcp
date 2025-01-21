@@ -9,6 +9,7 @@ public class Jugador {
     private ArrayList<Carta> hand = new ArrayList<>();
     private boolean isActive;
 
+
     public void getInitialDeck(){
         for (int i = 0; i < 7; i++){
             hand.add(new Carta());
@@ -31,4 +32,7 @@ public class Jugador {
 
     }
 
+    public ArrayList<Carta> getHand() {
+        return hand;
+    }
 }

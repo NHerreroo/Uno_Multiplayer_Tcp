@@ -4,7 +4,7 @@ public class Carta {
 
     private int numero;
     private Colores color;
-    private String cardType;
+    private TipoCarta tipoCarta;
 
     private static final Random RANDOM = new Random();
 
@@ -23,26 +23,71 @@ public class Carta {
         public String getAnsiCode() {
             return ansiCode;
         }
+    }
 
+    enum TipoCarta {
+        NORMAL,    // Carta normal con número
+        MAS_DOS,   // Carta +2
+        SALTA,     // Carta Salta Turno
+        REVERSA    // Carta Cambio de Sentido
     }
 
     public Carta() {
-        this.numero = getRandomNum();
+        this.tipoCarta = getRandomTipoCarta();
+        if (tipoCarta == TipoCarta.NORMAL) {
+            this.numero = getRandomNum();
+        } else {
+            this.numero = -1; // No tiene número en cartas especiales
+        }
         this.color = getRandomColor();
     }
 
-    public int getRandomNum() {
-        return RANDOM.nextInt(10);
+    private int getRandomNum() {
+        return RANDOM.nextInt(10); // Números del 0 al 9
     }
 
-    public static Colores getRandomColor() {
+    private static Colores getRandomColor() {
         int randIndex = RANDOM.nextInt(Colores.values().length);
         return Colores.values()[randIndex];
+    }
+
+    private TipoCarta getRandomTipoCarta() {
+        int randIndex = RANDOM.nextInt(10); // Ajusta la probabilidad aquí
+        if (randIndex < 6) {
+            return TipoCarta.NORMAL; // 60% probabilidad de carta normal
+        } else if (randIndex < 8) {
+            return TipoCarta.MAS_DOS; // 20% probabilidad de +2
+        } else if (randIndex == 8) {
+            return TipoCarta.SALTA; // 10% probabilidad de Salta Turno
+        } else {
+            return TipoCarta.REVERSA; // 10% probabilidad de Cambio de Sentido
+        }
     }
 
     @Override
     public String toString() {
         String resetColor = "\u001B[0m"; // Código para reiniciar el color
-        return resetColor + "- " + color.getAnsiCode() + "[" + numero + "] " + resetColor;
+        String tipo = "";
+
+        switch (tipoCarta) {
+            case NORMAL -> tipo = "[" + numero + "]";
+            case MAS_DOS -> tipo = "+2";
+            case SALTA -> tipo = "Salta Turno";
+            case REVERSA -> tipo = "Cambio de Sentido";
+        }
+
+        return resetColor + "- " + color.getAnsiCode() + tipo + resetColor;
+    }
+
+    public TipoCarta getTipoCarta() {
+        return tipoCarta;
+    }
+
+    public Colores getColor() {
+        return color;
+    }
+
+    public int getNumero() {
+        return numero;
     }
 }

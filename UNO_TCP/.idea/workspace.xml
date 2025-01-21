@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa1dc172-59ae-44f5-919e-13bce574c4cf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Carta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Carta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Jugador.java" afterDir="false" />
-    </list>
-    <list id="fc22f68e-522e-46ab-87a7-f2512de2636e" name="Changes by Davide" comment="">
       <change beforePath="$PROJECT_DIR$/src/Carta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Carta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Juego.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Juego.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Jugador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ThreadServidorUnoTcp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ThreadServidorUnoTcp.java" afterDir="false" />
     </list>
+    <list id="fc22f68e-522e-46ab-87a7-f2512de2636e" name="Changes by Davide" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,29 +27,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/Jugador.java">
-      <ranges>
-        <range start1="6" end1="7" start2="6" end2="7" changelist="fc22f68e-522e-46ab-87a7-f2512de2636e" />
-        <range start1="8" end1="9" start2="8" end2="10" changelist="fa1dc172-59ae-44f5-919e-13bce574c4cf" />
-        <range start1="10" end1="10" start2="11" end2="16" changelist="fa1dc172-59ae-44f5-919e-13bce574c4cf" />
-        <range start1="11" end1="13" start2="17" end2="19" changelist="fa1dc172-59ae-44f5-919e-13bce574c4cf" />
-        <range start1="14" end1="14" start2="20" end2="24" changelist="fa1dc172-59ae-44f5-919e-13bce574c4cf" />
-        <range start1="17" end1="18" start2="27" end2="28" changelist="fa1dc172-59ae-44f5-919e-13bce574c4cf" />
-        <range start1="19" end1="27" start2="29" end2="30" changelist="fa1dc172-59ae-44f5-919e-13bce574c4cf" />
-        <range start1="28" end1="29" start2="31" end2="31" changelist="fa1dc172-59ae-44f5-919e-13bce574c4cf" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/Carta.java">
-      <ranges>
-        <range start1="5" end1="6" start2="5" end2="9" changelist="fc22f68e-522e-46ab-87a7-f2512de2636e" />
-        <range start1="7" end1="12" start2="10" end2="31" changelist="fa1dc172-59ae-44f5-919e-13bce574c4cf" />
-        <range start1="15" end1="16" start2="34" end2="35" changelist="fc22f68e-522e-46ab-87a7-f2512de2636e" />
-        <range start1="18" end1="21" start2="37" end2="40" changelist="fc22f68e-522e-46ab-87a7-f2512de2636e" />
-        <range start1="23" end1="23" start2="42" end2="48" changelist="fa1dc172-59ae-44f5-919e-13bce574c4cf" />
-      </ranges>
-    </file>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -67,18 +41,23 @@
     "Application.Carta (2).executor": "Run",
     "Application.Carta.executor": "Run",
     "Application.ClienteUnoTcp.executor": "Run",
+    "Application.Juego.executor": "Run",
     "Application.Jugador.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.ServidorUnoTcp.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "development",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Programacion/JAVA/Uno_Multiplayer_Tcp/UNO_TCP",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Jugador">
+  <component name="RunManager" selected="Application.Juego">
     <configuration name="Carta (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Carta" />
       <module name="UNO_TCP" />
@@ -107,6 +86,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Juego" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Juego" />
+      <module name="UNO_TCP" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Jugador" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Jugador" />
       <module name="UNO_TCP" />
@@ -114,20 +100,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="UNO_TCP" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Juego" />
         <item itemvalue="Application.Jugador" />
         <item itemvalue="Application.Carta" />
         <item itemvalue="Application.Carta (2)" />
         <item itemvalue="Application.Carta (1)" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
