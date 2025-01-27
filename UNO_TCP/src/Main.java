@@ -22,18 +22,26 @@ public class Main {
             switch (opcion){
                 case 1:
                     System.out.println("Ingresa tu nombre: ");
-                    sc.next(); //esto va aqui por q si no pilla lo siguiente
+                    sc.nextLine(); // Consumir salto de línea previo
                     playerName = sc.nextLine();
 
                     System.out.println("---------------------------------------");
                     System.out.println("Iniciando servidor y cliente local...");
                     System.out.println(ANSI_GREEN + "Tu IP: " + ip.getHostAddress() + ANSI_RESET);
+
                     new Thread(() -> {
-                        ServidorUnoTcp serv = new ServidorUnoTcp(559);
+                        ServidorUnoTcp serv = new ServidorUnoTcp(5559);
                         serv.listen();
                     }).start();
 
-                    ClienteUnoTcp cliente = new ClienteUnoTcp("localhost", 559, playerName);
+                    // Agregar un pequeño retraso para garantizar que el servidor esté listo
+                    try {
+                        Thread.sleep(500); // 500 ms de espera
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    ClienteUnoTcp cliente = new ClienteUnoTcp("localhost", 5559, playerName);
                     cliente.connect();
                     break;
 
@@ -46,7 +54,7 @@ public class Main {
                     sc.nextLine();
                     String hostname = sc.nextLine();
 
-                    ClienteUnoTcp clienteRemoto = new ClienteUnoTcp(hostname, 559, playerName);
+                    ClienteUnoTcp clienteRemoto = new ClienteUnoTcp(hostname, 5559, playerName);
                     clienteRemoto.connect();
                     break;
 

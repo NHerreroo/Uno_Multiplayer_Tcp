@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fa1dc172-59ae-44f5-919e-13bce574c4cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClienteUnoTcp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClienteUnoTcp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServidorUnoTcp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServidorUnoTcp.java" afterDir="false" />
     </list>
     <list id="fc22f68e-522e-46ab-87a7-f2512de2636e" name="Changes by Davide" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,18 +26,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "NHerreroo"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;NHerreroo&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/NHerreroo/Uno_Multiplayer_Tcp.git",
-    "accountId": "e4a72bd6-dd76-41b8-929e-3169170d867b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/NHerreroo/Uno_Multiplayer_Tcp.git&quot;,
+    &quot;accountId&quot;: &quot;e4a72bd6-dd76-41b8-929e-3169170d867b&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -65,14 +68,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Juego">
-    <configuration name="Carta (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Carta" />
-      <module name="UNO_TCP" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Carta (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Carta" />
       <module name="UNO_TCP" />
@@ -108,13 +104,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="UNO_TCP" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Juego" />
         <item itemvalue="Application.Jugador" />
         <item itemvalue="Application.Carta" />
         <item itemvalue="Application.Carta (2)" />
-        <item itemvalue="Application.Carta (1)" />
       </list>
     </recent_temporary>
   </component>
