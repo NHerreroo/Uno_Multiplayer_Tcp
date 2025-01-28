@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa1dc172-59ae-44f5-919e-13bce574c4cf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Carta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Carta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServidorUnoTcp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServidorUnoTcp.java" afterDir="false" />
     </list>
     <list id="fc22f68e-522e-46ab-87a7-f2512de2636e" name="Changes by Davide" comment="" />
@@ -45,28 +43,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Carta (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Carta (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Carta.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ClienteUnoTcp.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Juego.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Jugador.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ServidorUnoTcp.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Programacion/JAVA/Uno_Multiplayer_Tcp/UNO_TCP&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Carta (1).executor": "Run",
+    "Application.Carta (2).executor": "Run",
+    "Application.Carta.executor": "Run",
+    "Application.ClienteUnoTcp.executor": "Run",
+    "Application.Juego.executor": "Run",
+    "Application.Jugador.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.ServidorUnoTcp.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Programacion/JAVA/Uno_Multiplayer_Tcp/UNO_TCP",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Carta (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Carta" />

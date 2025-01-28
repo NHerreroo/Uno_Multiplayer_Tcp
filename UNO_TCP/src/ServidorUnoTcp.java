@@ -88,9 +88,11 @@ public class ServidorUnoTcp {
     }
 
     private boolean puedeJugar(Carta carta) {
-        return carta.getColor() == cartaActual.getColor() ||
-                carta.getTipoCarta() == cartaActual.getTipoCarta() ||
-                (carta.getTipoCarta() == Carta.TipoCarta.NORMAL && carta.getNumero() == cartaActual.getNumero());
+       if (carta.getColor() == cartaActual.getColor() || carta.getNumero() == cartaActual.getNumero()){
+           return true;
+       }else{
+           return false;
+       }
     }
 
     private void notificarTurno() {
