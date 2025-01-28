@@ -2,10 +2,17 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+// ServidorUnoTcp.java
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
 public class ServidorUnoTcp {
     private int port;
-    private List<ClienteHandler> clientes = new ArrayList<>();
+    public List<ClienteHandler> clientes = new ArrayList<>();
     private boolean partidaIniciada = false;
+    private int turnoActual = 0;
+    private Carta cartaActual = new Carta();
 
     public ServidorUnoTcp(int port) {
         this.port = port;
@@ -20,10 +27,88 @@ public class ServidorUnoTcp {
                 ClienteHandler clienteHandler = new ClienteHandler(clienteSocket, this);
                 clientes.add(clienteHandler);
                 new Thread(clienteHandler).start();
+
+                if (clientes.size() == 2) {
+                    iniciarPartida();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private synchronized void iniciarPartida() {
+        partidaIniciada = true;
+        enviarMensajeATodos("La partida ha comenzado. Primera carta: " + cartaActual);
+        notificarTurno();
+    }
+
+    public synchronized void procesarJugada(int idJugador, String jugada) {
+        if (idJugador != turnoActual) {
+            enviarMensaje(clientes.get(idJugador), "No es tu turno.");
+            return;
+        }
+
+        Jugador jugador = clientes.get(idJugador).getJugador();
+
+        if (jugada.equals("0")) { // Robar carta
+            Carta nuevaCarta = new Carta();
+            jugador.getHand().add(nuevaCarta);
+            enviarMensaje(clientes.get(idJugador), "Robaste: " + nuevaCarta);
+        } else {
+            try {
+                int index = Integer.parseInt(jugada) - 1;
+                Carta cartaSeleccionada = jugador.getHand().get(index);
+                if (puedeJugar(cartaSeleccionada)) {
+                    cartaActual = cartaSeleccionada;
+                    jugador.getHand().remove(index);
+                    enviarMensajeATodos("Jugador " + idJugador + " jugó: " + cartaActual);
+
+                    if (jugador.getHand().isEmpty()) {
+                        enviarMensajeATodos("Jugador " + idJugador + " ha ganado la partida!");
+                        System.exit(0);
+                    }
+                } else {
+                    enviarMensaje(clientes.get(idJugador), "No puedes jugar esa carta.");
+                    return;
+                }
+            } catch (Exception e) {
+                enviarMensaje(clientes.get(idJugador), "Jugada inválida. Intenta de nuevo.");
+                return;
+            }
+        }
+
+        turnoActual = (turnoActual + 1) % clientes.size();
+        notificarTurno();
+    }
+
+    private boolean puedeJugar(Carta carta) {
+        return carta.getColor() == cartaActual.getColor() ||
+                carta.getTipoCarta() == cartaActual.getTipoCarta() ||
+                (carta.getTipoCarta() == Carta.TipoCarta.NORMAL && carta.getNumero() == cartaActual.getNumero());
+    }
+
+    private void notificarTurno() {
+        for (int i = 0; i < clientes.size(); i++) {
+            if (i == turnoActual) {
+                enviarMensaje(clientes.get(i), "Es tu turno. Carta actual: " + cartaActual);
+                enviarMensaje(clientes.get(i), "Tu mano:\n" + formatearMano(clientes.get(i).getJugador().getHand()));
+            } else {
+                enviarMensaje(clientes.get(i), "Espera tu turno.");
+            }
+        }
+    }
+
+    private String formatearMano(List<Carta> mano) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < mano.size(); i++) {
+            sb.append(i + 1).append(". ").append(mano.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    public synchronized void enviarMensaje(ClienteHandler cliente, String mensaje) {
+        cliente.enviarMensaje(mensaje);
     }
 
     public synchronized void enviarMensajeATodos(String mensaje) {
@@ -31,56 +116,35 @@ public class ServidorUnoTcp {
             cliente.enviarMensaje(mensaje);
         }
     }
-
-    public synchronized void iniciarPartida() {
-        partidaIniciada = true;
-        enviarMensajeATodos("La partida ha comenzado.");
-        // Aquí podrías inicializar la lógica del juego.
-    }
-
-    public synchronized List<String> obtenerNombresJugadores() {
-        List<String> nombres = new ArrayList<>();
-        for (ClienteHandler cliente : clientes) {
-            nombres.add(cliente.getNombre());
-        }
-        return nombres;
-    }
 }
 
 class ClienteHandler implements Runnable {
     private Socket socket;
     private ServidorUnoTcp servidor;
     private PrintWriter out;
-    private String nombre;
+    private BufferedReader in;
+    private Jugador jugador;
 
     public ClienteHandler(Socket socket, ServidorUnoTcp servidor) {
         this.socket = socket;
         this.servidor = servidor;
+        this.jugador = new Jugador();
     }
 
     @Override
     public void run() {
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+        try {
             out = new PrintWriter(socket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            out.println("Bienvenido al servidor UNO. Ingresa tu nombre:");
-            nombre = in.readLine();
-
-            servidor.enviarMensajeATodos(nombre + " se ha unido a la partida.");
-            mostrarJugadores();
+            jugador.getInitialDeck();
 
             String mensaje;
             while ((mensaje = in.readLine()) != null) {
-                if (mensaje.equalsIgnoreCase("iniciar")) {
-                    servidor.iniciarPartida();
-                    break;
-                }
-                servidor.enviarMensajeATodos(nombre + ": " + mensaje);
+                servidor.procesarJugada(servidor.clientes.indexOf(this), mensaje);
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            cerrarConexion();
         }
     }
 
@@ -90,24 +154,7 @@ class ClienteHandler implements Runnable {
         }
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    private void cerrarConexion() {
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        servidor.enviarMensajeATodos(nombre + " ha abandonado la partida.");
-    }
-
-    private void mostrarJugadores() {
-        List<String> jugadores = servidor.obtenerNombresJugadores();
-        out.println("Jugadores en la sala:");
-        for (String jugador : jugadores) {
-            out.println("- " + jugador);
-        }
+    public Jugador getJugador() {
+        return jugador;
     }
 }

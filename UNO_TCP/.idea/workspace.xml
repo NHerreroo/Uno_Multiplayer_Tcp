@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fa1dc172-59ae-44f5-919e-13bce574c4cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ClienteUnoTcp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClienteUnoTcp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServidorUnoTcp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServidorUnoTcp.java" afterDir="false" />
     </list>
     <list id="fc22f68e-522e-46ab-87a7-f2512de2636e" name="Changes by Davide" comment="" />
@@ -104,7 +102,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="UNO_TCP" />
       <method v="2">
