@@ -52,16 +52,17 @@ public class Carta {
     }
 
     private TipoCarta getRandomTipoCarta() {
-        int randIndex = RANDOM.nextInt(10); // Ajusta la probabilidad aquí
-        if (randIndex < 6) {
-            return TipoCarta.NORMAL; // 60% probabilidad de carta normal
-        } else if (randIndex < 8) {
-            return TipoCarta.MAS_DOS; // 20% probabilidad de +2
-        } else if (randIndex == 8) {
-            return TipoCarta.SALTA; // 10% probabilidad de Salta Turno
-        } else {
-            return TipoCarta.REVERSA; // 10% probabilidad de Cambio de Sentido
-        }
+        return TipoCarta.NORMAL;
+//        int randIndex = RANDOM.nextInt(10); // Ajusta la probabilidad aquí
+//        if (randIndex < 6) {
+//            return TipoCarta.NORMAL; // 60% probabilidad de carta normal
+//        } else if (randIndex < 8) {
+//            return TipoCarta.MAS_DOS; // 20% probabilidad de +2
+//        } else if (randIndex == 8) {
+//            return TipoCarta.SALTA; // 10% probabilidad de Salta Turno
+//        } else {
+//            return TipoCarta.REVERSA; // 10% probabilidad de Cambio de Sentido
+//        }
     }
 
     @Override

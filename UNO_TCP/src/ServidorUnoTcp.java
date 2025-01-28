@@ -54,10 +54,15 @@ public class ServidorUnoTcp {
         if (jugada.equals("0")) { // Robar carta
             Carta nuevaCarta = new Carta();
             jugador.getHand().add(nuevaCarta);
-            enviarMensaje(clientes.get(idJugador), "Robaste: " + nuevaCarta);
+            enviarMensaje(clientes.get(idJugador), "Has robado una carta: " + nuevaCarta);
         } else {
             try {
                 int index = Integer.parseInt(jugada) - 1;
+                if (index < 0 || index >= jugador.getHand().size()) {
+                    enviarMensaje(clientes.get(idJugador), "Jugada inválida. Intenta de nuevo.");
+                    return;
+                }
+
                 Carta cartaSeleccionada = jugador.getHand().get(index);
                 if (puedeJugar(cartaSeleccionada)) {
                     cartaActual = cartaSeleccionada;
@@ -69,7 +74,7 @@ public class ServidorUnoTcp {
                         System.exit(0);
                     }
                 } else {
-                    enviarMensaje(clientes.get(idJugador), "No puedes jugar esa carta.");
+                    enviarMensaje(clientes.get(idJugador), "No puedes jugar esa carta. Intenta con otra.");
                     return;
                 }
             } catch (Exception e) {
@@ -91,8 +96,12 @@ public class ServidorUnoTcp {
     private void notificarTurno() {
         for (int i = 0; i < clientes.size(); i++) {
             if (i == turnoActual) {
-                enviarMensaje(clientes.get(i), "Es tu turno. Carta actual: " + cartaActual);
-                enviarMensaje(clientes.get(i), "Tu mano:\n" + formatearMano(clientes.get(i).getJugador().getHand()));
+                enviarMensaje(clientes.get(i), "======================================================\n" +
+                        "Es tu turno.\n" +
+                        "Carta actual en juego: " + cartaActual + "\n" +
+                        "Tu mano:\n" + formatearMano(clientes.get(i).getJugador().getHand()) +
+                        "\nSelecciona una carta ingresando el número correspondiente o escribe 0 para robar una carta.\n" +
+                        "======================================================");
             } else {
                 enviarMensaje(clientes.get(i), "Espera tu turno.");
             }
