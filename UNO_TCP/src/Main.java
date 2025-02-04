@@ -47,11 +47,10 @@ public class Main {
 
                 case 2:
                     System.out.println("Ingresa tu nombre: ");
+                    sc.nextLine(); // Consumir salto de línea previo
                     playerName = sc.nextLine();
-                    sc.next();
 
                     System.out.println("Ingresa la dirección IP del servidor: ");
-                    sc.nextLine();
                     String hostname = sc.nextLine();
 
                     ClienteUnoTcp clienteRemoto = new ClienteUnoTcp(hostname, 5559, playerName);

@@ -2,11 +2,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-// ServidorUnoTcp.java
-import java.io.*;
-import java.net.*;
-import java.util.*;
-
 public class ServidorUnoTcp {
     private int port;
     public List<ClienteHandler> clientes = new ArrayList<>();
@@ -67,10 +62,10 @@ public class ServidorUnoTcp {
                 if (puedeJugar(cartaSeleccionada)) {
                     cartaActual = cartaSeleccionada;
                     jugador.getHand().remove(index);
-                    enviarMensajeATodos("Jugador " + idJugador + " jugó: " + cartaActual);
+                    enviarMensajeATodos("Jugador " + clientes.get(idJugador).getNombre() + " jugó: " + cartaActual);
 
                     if (jugador.getHand().isEmpty()) {
-                        enviarMensajeATodos("Jugador " + idJugador + " ha ganado la partida!");
+                        enviarMensajeATodos("Jugador " + clientes.get(idJugador).getNombre() + " ha ganado la partida!");
                         System.exit(0);
                     }
                 } else {
@@ -88,24 +83,24 @@ public class ServidorUnoTcp {
     }
 
     private boolean puedeJugar(Carta carta) {
-       if (carta.getColor() == cartaActual.getColor() || carta.getNumero() == cartaActual.getNumero()){
-           return true;
-       }else{
-           return false;
-       }
+        if (carta.getColor() == cartaActual.getColor() || carta.getNumero() == cartaActual.getNumero()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private void notificarTurno() {
         for (int i = 0; i < clientes.size(); i++) {
             if (i == turnoActual) {
                 enviarMensaje(clientes.get(i), "======================================================\n" +
-                        "Es tu turno.\n" +
+                        "Es tu turno, " + clientes.get(i).getNombre() + ".\n" +
                         "Carta actual en juego: " + cartaActual + "\n" +
                         "Tu mano:\n" + formatearMano(clientes.get(i).getJugador().getHand()) +
                         "\nSelecciona una carta ingresando el número correspondiente o escribe 0 para robar una carta.\n" +
                         "======================================================");
             } else {
-                enviarMensaje(clientes.get(i), "Espera tu turno.");
+                enviarMensaje(clientes.get(i), "Espera tu turno. Es el turno de " + clientes.get(turnoActual).getNombre() + ".");
             }
         }
     }
@@ -127,6 +122,17 @@ public class ServidorUnoTcp {
             cliente.enviarMensaje(mensaje);
         }
     }
+
+    public synchronized void notificarDesconexion(ClienteHandler clienteDesconectado) {
+        clientes.remove(clienteDesconectado); // Eliminar al jugador desconectado de la lista
+        if (clientes.size() == 1) { // Si solo queda un jugador
+            ClienteHandler clienteRestante = clientes.get(0);
+            clienteRestante.enviarMensaje("El jugador " + clienteDesconectado.getNombre() + " se ha desconectado.");
+            clienteRestante.enviarMensaje("Pulsa 0 para volver al menú principal.");
+        } else if (clientes.isEmpty()) { // Si no quedan jugadores
+            System.out.println("Todos los jugadores se han desconectado.");
+        }
+    }
 }
 
 class ClienteHandler implements Runnable {
@@ -135,6 +141,7 @@ class ClienteHandler implements Runnable {
     private PrintWriter out;
     private BufferedReader in;
     private Jugador jugador;
+    private String nombre;
 
     public ClienteHandler(Socket socket, ServidorUnoTcp servidor) {
         this.socket = socket;
@@ -148,6 +155,10 @@ class ClienteHandler implements Runnable {
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+            // Recibir el nombre del jugador
+            this.nombre = in.readLine(); // Espera a recibir el nombre del jugador
+            System.out.println("Jugador conectado: " + nombre);
+
             jugador.getInitialDeck();
 
             String mensaje;
@@ -155,7 +166,14 @@ class ClienteHandler implements Runnable {
                 servidor.procesarJugada(servidor.clientes.indexOf(this), mensaje);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("El jugador " + nombre + " se ha desconectado.");
+            servidor.notificarDesconexion(this);
+        } finally {
+            try {
+                if (socket != null) socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -167,5 +185,9 @@ class ClienteHandler implements Runnable {
 
     public Jugador getJugador() {
         return jugador;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 }

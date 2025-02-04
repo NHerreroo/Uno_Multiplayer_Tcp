@@ -1,14 +1,17 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Jugador {
-
     private String name;
-
     private ArrayList<Carta> hand = new ArrayList<>();
     private boolean isActive;
 
+    public Jugador() {
+        // Constructor vacío por defecto
+    }
+
+    public Jugador(String name) {
+        this.name = name;
+    }
 
     public void getInitialDeck(){
         for (int i = 0; i < 7; i++){
@@ -24,15 +27,15 @@ public class Jugador {
         for (Carta c : hand) System.out.println((hand.indexOf(c) + 1) + " " + c);
     }
 
-    public static void main(String[] args) {
-        Jugador j = new Jugador();
-        j.getInitialDeck();
-
-        j.showHand();
-
-    }
-
     public ArrayList<Carta> getHand() {
         return hand;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

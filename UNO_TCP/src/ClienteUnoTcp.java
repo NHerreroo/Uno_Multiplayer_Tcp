@@ -19,9 +19,11 @@ public class ClienteUnoTcp {
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             System.out.println("Conectado al servidor " + hostname);
-            new Thread(() -> escucharMensajes(in)).start();
 
+            // Enviar el nombre al servidor
             out.println(nombre);
+
+            new Thread(() -> escucharMensajes(in)).start();
 
             Scanner sc = new Scanner(System.in);
             String mensaje;
