@@ -19,9 +19,7 @@ public class ClienteUnoTcp {
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             System.out.println("Conectado al servidor " + hostname);
-
-            // Enviar el nombre al servidor
-            out.println(nombre);
+            out.println(nombre); // Enviar el nombre al servidor
 
             new Thread(() -> escucharMensajes(in)).start();
 
@@ -29,11 +27,18 @@ public class ClienteUnoTcp {
             String mensaje;
             while (true) {
                 mensaje = sc.nextLine();
-                if (mensaje.equalsIgnoreCase("salir")) break;
+                if (mensaje.equalsIgnoreCase("salir") || mensaje.equalsIgnoreCase("menu")) {
+                    System.out.println("Volviendo al menú principal...");
+                    out.println("salir");  // Notificamos al servidor que el jugador se va
+                    break;
+                }
                 out.println(mensaje);
             }
+
+            // Volver a mostrar el menú después de salir
+            Main.mostrarMenu();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Se ha perdido la conexión con el servidor.");
         }
     }
 
@@ -44,7 +49,7 @@ public class ClienteUnoTcp {
                 System.out.println(mensaje);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Se ha perdido la conexión con el servidor.");
         }
     }
 }

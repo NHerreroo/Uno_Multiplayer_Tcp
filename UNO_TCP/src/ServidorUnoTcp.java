@@ -2,22 +2,36 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
 public class ServidorUnoTcp {
     private int port;
+    private boolean servidorActivo = true;
     public List<ClienteHandler> clientes = new ArrayList<>();
-    private boolean partidaIniciada = false;
     private int turnoActual = 0;
     private Carta cartaActual = new Carta();
+    private ServerSocket serverSocket;
 
     public ServidorUnoTcp(int port) {
         this.port = port;
     }
 
     public void listen() {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+        try {
+            serverSocket = new ServerSocket(port);
             System.out.println("Servidor iniciado en el puerto " + port);
 
-            while (!partidaIniciada) {
+            while (servidorActivo) {
                 Socket clienteSocket = serverSocket.accept();
                 ClienteHandler clienteHandler = new ClienteHandler(clienteSocket, this);
                 clientes.add(clienteHandler);
@@ -28,12 +42,15 @@ public class ServidorUnoTcp {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            if (servidorActivo) {
+                e.printStackTrace();
+            }
+        } finally {
+            cerrarServidor();
         }
     }
 
     private synchronized void iniciarPartida() {
-        partidaIniciada = true;
         enviarMensajeATodos("La partida ha comenzado. Primera carta: " + cartaActual);
         notificarTurno();
     }
@@ -66,7 +83,8 @@ public class ServidorUnoTcp {
 
                     if (jugador.getHand().isEmpty()) {
                         enviarMensajeATodos("Jugador " + clientes.get(idJugador).getNombre() + " ha ganado la partida!");
-                        System.exit(0);
+                        detenerServidor();
+                        return;
                     }
                 } else {
                     enviarMensaje(clientes.get(idJugador), "No puedes jugar esa carta. Intenta con otra.");
@@ -83,11 +101,7 @@ public class ServidorUnoTcp {
     }
 
     private boolean puedeJugar(Carta carta) {
-        if (carta.getColor() == cartaActual.getColor() || carta.getNumero() == cartaActual.getNumero()){
-            return true;
-        }else{
-            return false;
-        }
+        return carta.getColor() == cartaActual.getColor() || carta.getNumero() == cartaActual.getNumero();
     }
 
     private void notificarTurno() {
@@ -98,9 +112,11 @@ public class ServidorUnoTcp {
                         "Carta actual en juego: " + cartaActual + "\n" +
                         "Tu mano:\n" + formatearMano(clientes.get(i).getJugador().getHand()) +
                         "\nSelecciona una carta ingresando el número correspondiente o escribe 0 para robar una carta.\n" +
+                        "\nSi lo deseas, escribe 'salir' para ir al menú princiapl.\n" +
                         "======================================================");
             } else {
                 enviarMensaje(clientes.get(i), "Espera tu turno. Es el turno de " + clientes.get(turnoActual).getNombre() + ".");
+                enviarMensaje(clientes.get(i), "Si lo deseas, escribe 'salir' para ir al menú principal.");
             }
         }
     }
@@ -113,6 +129,35 @@ public class ServidorUnoTcp {
         return sb.toString();
     }
 
+    public synchronized void notificarDesconexion(ClienteHandler clienteDesconectado) {
+        clientes.remove(clienteDesconectado);
+
+        if (!clientes.isEmpty()) {
+            ClienteHandler jugadorRestante = clientes.get(0);
+            jugadorRestante.enviarMensaje("El jugador " + clienteDesconectado.getNombre() + " se ha desconectado.");
+            jugadorRestante.enviarMensaje("¡Has ganado automáticamente la partida!");
+            jugadorRestante.enviarMensaje("Escribe 'menu' para volver al menú principal.");
+        } else {
+            System.out.println("Todos los jugadores se han desconectado. Cerrando el servidor...");
+            detenerServidor();
+        }
+    }
+
+    public void detenerServidor() {
+        servidorActivo = false;
+        try {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void cerrarServidor() {
+        System.out.println("Servidor cerrado.");
+    }
+
     public synchronized void enviarMensaje(ClienteHandler cliente, String mensaje) {
         cliente.enviarMensaje(mensaje);
     }
@@ -122,19 +167,11 @@ public class ServidorUnoTcp {
             cliente.enviarMensaje(mensaje);
         }
     }
-
-    public synchronized void notificarDesconexion(ClienteHandler clienteDesconectado) {
-        clientes.remove(clienteDesconectado); // Eliminar al jugador desconectado de la lista
-        if (clientes.size() == 1) { // Si solo queda un jugador
-            ClienteHandler clienteRestante = clientes.get(0);
-            clienteRestante.enviarMensaje("El jugador " + clienteDesconectado.getNombre() + " se ha desconectado.");
-            clienteRestante.enviarMensaje("Pulsa 0 para volver al menú principal.");
-        } else if (clientes.isEmpty()) { // Si no quedan jugadores
-            System.out.println("Todos los jugadores se han desconectado.");
-        }
-    }
 }
 
+/**
+ * Clase interna para manejar la conexión de cada cliente
+ */
 class ClienteHandler implements Runnable {
     private Socket socket;
     private ServidorUnoTcp servidor;
@@ -156,13 +193,18 @@ class ClienteHandler implements Runnable {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             // Recibir el nombre del jugador
-            this.nombre = in.readLine(); // Espera a recibir el nombre del jugador
+            this.nombre = in.readLine();
             System.out.println("Jugador conectado: " + nombre);
 
             jugador.getInitialDeck();
 
             String mensaje;
             while ((mensaje = in.readLine()) != null) {
+                if (mensaje.equalsIgnoreCase("salir") || mensaje.equalsIgnoreCase("menu")) {
+                    System.out.println("El jugador " + nombre + " ha salido de la partida.");
+                    servidor.notificarDesconexion(this);
+                    break;
+                }
                 servidor.procesarJugada(servidor.clientes.indexOf(this), mensaje);
             }
         } catch (IOException e) {
